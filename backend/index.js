@@ -1,0 +1,31 @@
+require("dotenv").config();
+const connectDb = require("./db/connectDb");
+const express = require("express");
+const bodyParser = require("body-parser")
+
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+const {notFound, errorHandler} = require("./middlewares/errorHandler")
+
+const authRoutes = require("./routes/auth.routes");
+const requestRoutes = require("./routes/request.routes");
+const friendRoutes = require("./routes/friend.routes")
+
+
+
+app.use("/api/auth", authRoutes);
+app.use("/api/requests", requestRoutes);
+app.use("/api/friends")
+
+app.use(notFound);
+app.use(errorHandler);
+
+const port = process.env.port || 4001;
+
+connectDb().then(() => {
+  app.listen(port, () => {
+    console.log("App listening at port " + port);
+  });
+});

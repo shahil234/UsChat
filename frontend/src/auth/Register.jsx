@@ -2,7 +2,9 @@ import React from 'react'
 
 const Register = () => {
   return (
-    <div>Register</div>
+    <div className='h-screen w-full flex items-center justify-center'>
+      
+    </div>
   )
 }
 

@@ -1,13 +1,29 @@
-import {create} from "zustand"
-export const useAuth = create((set) => {
-    return {
-        accessToken: null,
-        refreshToken: null,
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+export const useAuth = create(
+  persist(
+    (set) => {
+      return {
+        accessToken: localStorage.getItem("usChatAuthData")?.accessToken || null,
+        refreshToken:  localStorage.getItem("usChatAuthData")?.refreshToken || null,
         isLogedIn: false,
-        logOutUser: () => set((state) => ({
+        logInUser: ({ accessToken, refreshToken }) =>
+          set(() => ({
+            accessToken,
+            refreshToken,
+            isLogedIn: true,
+          })),
+        logOutUser: () =>
+          set((state) => ({
             ...state,
             isLogedIn: false,
-            accessToken: null
-        }))
+            accessToken: null,
+          })),
+      };
+    },
+    {
+      name: "usChatAuthData",
     }
-})
+  )
+);

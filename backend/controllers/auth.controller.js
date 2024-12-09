@@ -15,15 +15,16 @@ const signUp = asyncHandler(async (req, res) => {
   const isExistingUserName = await User.findOne({username});
   const isEmailUsed = await User.findOne({email});
 
+  if(isEmailUsed){
+    res.status(400);
+    throw new Error("User already exist with provided email");
+  };
   if(isExistingUserName) {
     res.status(400);
     throw new Error("Username is already taken");
   };
 
-  if(isEmailUsed){
-    res.status(400);
-    throw new Error("User already exist with provided email");
-  };
+
 
   const newUser = new User();
   newUser.username = username;
@@ -79,12 +80,10 @@ const login = asyncHandler(async (req, res) => {
     }
   );
 
-  const userRefreshToken = new Token();
-
-  userRefreshToken.user = user._id;
-  userRefreshToken.token = refreshToken;
-
-  await userRefreshToken();
+  await Token.create({
+    user: user._id,
+    token: refreshToken
+  })
 
   res.status(200).json({
     success: true,

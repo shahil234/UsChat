@@ -4,8 +4,7 @@ const Friend = require("../models/friend.model");
 const Request = require("../models/request.model")
 
 const getSuggestions = asyncHandler(async (req, res) => {
-  const users = await User.find({ _id: { $ne: req.user_id } }).select("_id username avatar");
-
+  const users = await User.find({ _id: { $ne: req.user._id } }).select("_id username avatar email");
   const suggestions = await Promise.all(
     users.map(async (user) => {
       const isFriend = await Friend.findOne({

@@ -110,9 +110,37 @@ const getAllRequest = asyncHandler(async (req, res) => {
   });
 });
 
+const cancelRequest = asyncHandler(async (req, res) => {
+  const { receiverId } = req.query;
+
+  if (!receiverId) {
+    res.status(400);
+    throw new Error("No receiver id provided");
+  }
+
+  const deletedReq = await Request.findOneAndDelete({
+    sender: req.user._id,
+    receiver: receiverId,
+  });
+
+  console.log(deletedReq, "is this");
+
+  if (!deletedReq) {
+    res.status(400);
+    throw new Error("Friend request not found");
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Successfully canceled the request",
+  });
+});
+
+
 module.exports = {
   getAllRequest,
   acceptFriendRequest,
   rejectFriendRequest,
   sendFriendRequest,
+  cancelRequest,
 };

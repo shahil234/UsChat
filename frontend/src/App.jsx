@@ -10,18 +10,19 @@ import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
-import FriendList from "./pages/FriendList";
-import Requests from "./pages/Requests";
-import FriendSuggestion from "./pages/FriendSuggestion";
 import Navbar from "./ui/components/Navbar";
 import { useEffect } from "react";
+import Users from "./pages/Users";
 
 export default function App() {
   const isLogedIn = useAuth((state) => state.isLogedIn);
   const navigate = useNavigate();
   useEffect(() => {
-    navigate("/login")
-  },[isLogedIn])
+    if(!isLogedIn){
+      navigate("/login")
+    }
+  },[isLogedIn]);
+
   return (
     <>
       <Navbar />
@@ -29,8 +30,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/users" element={<FriendList />} />
-        <Route path="/suggestion" element={<FriendSuggestion />} />
+        <Route path="/suggestion" element={<Users />} />
         <Route path="/notification" element={<div>notification</div>} />
       </Routes>
       <Toaster />

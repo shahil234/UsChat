@@ -96,7 +96,7 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const getNewAccessToken = asyncHandler(async(req, res) => {
-  const { refreshToken } = req.query;
+  const { refreshToken } = req.body;
 
   if(!refreshToken){
     res.status(400);
@@ -105,7 +105,7 @@ const getNewAccessToken = asyncHandler(async(req, res) => {
 
   const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
   if(!payload){
-    res.status(404);
+    res.status(401);
     res.status("Invalid refresh token");
   }
 

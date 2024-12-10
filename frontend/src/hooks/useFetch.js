@@ -1,32 +1,44 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
+import useRefreshToken from "./useRefreshToken";
+import { useAuth } from "../store/useAuth";
 
-export default function useFetch({dep = [], endpoint}){
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [data, setData] = useState(null);
+export default function useFetch({ dep = [], endpoint }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
 
-    useEffect(() => {
-        const getData = async() => {
-            try {
-                setError(false)
-                setLoading(true)
-                const response = await axiosInstance.get(`/api/${endpoint}`);
-                setData(response?.data);
-                return response?.data
-            } catch (error) {
-                setError(true);
-                return {
-                    success: false,
-                    message: error?.response?.data?.message
-                }
-            }
-            finally{
-                setLoading(false);
-            }
+  const { getNewAccessToken } = useRefreshToken();
+  const { accessToken } = useAuth();
+
+  const fetchData = async (retry = true) => {
+    try {
+      setError(null);
+      setLoading(true);
+      const response = await axiosInstance.get(`/api/${endpoint}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setData(response?.data);
+    } catch (error) {
+      if (error?.response?.status === 401 && retry) {
+        const gotNewToken = await getNewAccessToken();
+        if (gotNewToken.success) {
+          // Retry fetching data after getting a new access token
+          return fetchData(false);
         }
-        getData();
-    },dep)
+      }
+      setError(error?.response?.data?.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return {data, loading, error};
+  useEffect(() => {
+    fetchData(); // Initial fetch
+    // Explicitly depend on `dep` and `endpoint` only
+  }, [endpoint, ...dep]);
+
+  return { data, loading, error };
 }

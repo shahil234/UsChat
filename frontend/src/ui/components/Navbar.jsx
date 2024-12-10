@@ -1,6 +1,6 @@
 import Wrapper from "../common/Wrapper";
 import { Link, useLocation } from "react-router-dom";
-import { House, Bell, Users,Menu } from 'lucide-react';
+import { House, Bell, Users,Menu, CircleUserRound } from 'lucide-react';
 
 export default function Navbar(){
     const query = useLocation();
@@ -14,15 +14,15 @@ export default function Navbar(){
                     <Link to={"/"}>
                         <House className={`${query.pathname === "/" && "text-blue-700"} cursor-pointer`} size={25} />
                     </Link>
-                    <Link to={"/users"}>
-                        <Users className={`${query.pathname === "/users" && "text-blue-700"} cursor-pointer`}  size={25} />
+                    <Link to={"/suggestion"}>
+                        <Users className={`${query.pathname === "/suggestion" && "text-blue-700"} cursor-pointer`}  size={25} />
                     </Link>
                     <Link to={"/notification"}>
                         <Bell className={`${query.pathname === "/notification" && "text-blue-700"} cursor-pointer`} size={25} />
                     </Link>
                 </div>
                 <div>
-                    <Menu className="cursor-pointer" size={25} />
+                    <CircleUserRound className="cursor-pointer" size={25} />
                 </div>
             </Wrapper>
         </nav>

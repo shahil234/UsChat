@@ -15,8 +15,8 @@ export const useAuth = create(
             isLogedIn: true,
           })),
         logOutUser: () =>
-          set((state) => ({
-            ...state,
+          set(() => ({
+            refreshToken: null,
             isLogedIn: false,
             accessToken: null,
           })),

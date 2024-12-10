@@ -41,7 +41,7 @@ const sendFriendRequest = asyncHandler(async (req, res) => {
 
   await Request.create({
     sender: sender._id,
-    receiver: receiver._id,
+    receiver: reciever._id,
   });
 
   res.status(200).json({
@@ -49,7 +49,7 @@ const sendFriendRequest = asyncHandler(async (req, res) => {
     message: "Successfully sent request",
     data: {
       sender: sender.username,
-      reciever: receiver.username,
+      reciever: reciever.username,
     },
   });
 });

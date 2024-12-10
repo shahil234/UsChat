@@ -25,7 +25,6 @@ export default function useFetch({ dep = [], endpoint }) {
       if (error?.response?.status === 401 && retry) {
         const gotNewToken = await getNewAccessToken();
         if (gotNewToken.success) {
-          // Retry fetching data after getting a new access token
           return fetchData(false);
         }
       }
@@ -36,8 +35,7 @@ export default function useFetch({ dep = [], endpoint }) {
   };
 
   useEffect(() => {
-    fetchData(); // Initial fetch
-    // Explicitly depend on `dep` and `endpoint` only
+    fetchData();
   }, [endpoint, ...dep]);
 
   return { data, loading, error };

@@ -12,7 +12,7 @@ export default function useRefreshToken() {
 
       logInUser({
         refreshToken,
-        accessToken: response?.data?.newAccessToken,
+        accessToken: response?.data?.data?.newAccessToken,
       });
       return {
         success: true,

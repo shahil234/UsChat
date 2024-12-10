@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 
 const User = require("../models/user.model");
-const Token = require("../models/token.model");
 
 const signUp = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
@@ -79,11 +78,6 @@ const login = asyncHandler(async (req, res) => {
         expiresIn: process.env.REFRESH_EXPIRATION
     }
   );
-
-  await Token.create({
-    user: user._id,
-    token: refreshToken
-  })
 
   res.status(200).json({
     success: true,

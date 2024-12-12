@@ -64,11 +64,13 @@ const acceptFriendRequest = asyncHandler(async (req, res) => {
     throw new Error("Invalid Request Id");
   }
 
+
   await Friend.create({
     user: request.sender,
     friendsWith: request.receiver,
   });
 
+  await Request.findByIdAndDelete(requestId)
   res.status(200).json({
     success: true,
     message: `Successfully accepted the request`,
@@ -76,7 +78,7 @@ const acceptFriendRequest = asyncHandler(async (req, res) => {
 });
 
 const rejectFriendRequest = asyncHandler(async (req, res) => {
-  const { requestId } = req.body;
+  const { requestId } = req.query;
 
   const request = await Request.findById(requestId);
 
@@ -96,7 +98,10 @@ const rejectFriendRequest = asyncHandler(async (req, res) => {
 const getAllRequest = asyncHandler(async (req, res) => {
   const user = req.user;
 
-  const friendRequests = await Request.find({ receiver: user._id });
+  const friendRequests = await Request.find({ receiver: user._id }).populate({
+    path: "sender",
+    select: "username _id avatar"
+  });
 
   if (!friendRequests) {
     res.status(404);

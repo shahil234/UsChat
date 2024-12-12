@@ -14,7 +14,7 @@ export default function usePatch() {
     try {
       setError(false);
       setLoading(true);
-      const res = await axiosInstance.post(`/api/${endpoint}`, data, {
+      const res = await axiosInstance.patch(`/api/${endpoint}`, data, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }

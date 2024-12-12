@@ -6,6 +6,7 @@ import { Button } from "../../components/ui/button";
 import { useNavigate } from "react-router-dom";
 import usePost from "../../hooks/usePost";
 import useDelete from "../../hooks/useDelete";
+import usePatch from "../../hooks/usePatch";
 const UserCard = ({
   setReFetchUsers,
   userId,
@@ -29,6 +30,7 @@ const UserCard = ({
     deleting: cancelingReq,
   } = useDelete();
 
+
   const sendFriendRequest = async () => {
     const response = await sendRequest("requests", {
       receiverId: userId,
@@ -51,7 +53,6 @@ const UserCard = ({
     }
   };
 
-  console.log(username, isSentRequest);
 
   return (
     <div className="col-span-12  md:col-span-6 lg:col-span-2 px-4 py-3 bg-gray-300 rounded-md shadow-md flex flex-col items-center justify-between space-y-2">
@@ -63,7 +64,7 @@ const UserCard = ({
         />
       </div>
       <div>
-        <span className="text-xl font-medium">{username}</span>
+        <span className="font-medium block text-center">{username}</span>
       </div>
       <div>
         {(!isReceivedRequest &&

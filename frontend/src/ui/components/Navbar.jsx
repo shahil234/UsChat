@@ -1,5 +1,5 @@
 import Wrapper from "../common/Wrapper";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { House, Bell, Users, Menu, CircleUserRound } from "lucide-react";
 import {
   DropdownMenu,
@@ -9,9 +9,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
+import { useAuth } from "../../store/useAuth";
 
 export default function Navbar() {
   const query = useLocation();
+  const navigate = useNavigate()
+  const { logOutUser } = useAuth()
   return (
     <nav className="w-full shadow-sm">
       <Wrapper
@@ -35,7 +38,7 @@ export default function Navbar() {
             <Users
               className={`${
                 query.pathname === "/suggestion" && "text-blue-700"
-              } cursor-pointer`}
+              } cursor-pointer`}Subscription
               size={25}
             />
           </Link>
@@ -58,9 +61,18 @@ export default function Navbar() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/friends")}>
+                Friends
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/requests")}>
+                Friend Requests
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {
+                logOutUser();
+                navigate("/login")
+              }}>
+                Log Out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

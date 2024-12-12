@@ -4,7 +4,7 @@ import Wrapper from "../common/Wrapper";
 
 const Suggestions = ({ users, setReFetchUsers }) => {
   return (
-    <Wrapper className={'bg-blue-400 min-h-screen py-8'}>
+    <Wrapper className={'min-h-screen py-8'}>
       <div className="grid grid-cols-12 gap-4 w-full">
         {users?.map((user) => (
           <UserCard

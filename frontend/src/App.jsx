@@ -13,6 +13,8 @@ import Register from "./auth/Register";
 import Navbar from "./ui/components/Navbar";
 import { useEffect } from "react";
 import Users from "./pages/Users";
+import Requests from "./pages/Requests";
+import Friends from "./pages/Friends";
 
 export default function App() {
   const isLogedIn = useAuth((state) => state.isLogedIn);
@@ -32,6 +34,8 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/suggestion" element={<Users />} />
         <Route path="/notification" element={<div>notification</div>} />
+        <Route path="/requests" element={<Requests />} />
+        <Route path="/friends" element={<Friends />} />
       </Routes>
       <Toaster />
     </>

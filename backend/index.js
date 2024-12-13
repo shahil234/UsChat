@@ -15,11 +15,15 @@ const authRoutes = require("./routes/auth.routes");
 const requestRoutes = require("./routes/request.routes");
 const friendRoutes = require("./routes/friend.routes");
 const suggestionRoutes = require("./routes/suggestion.routes");
+const userRoutes = require("./routes/user.routes");
+
+app.use("/public", express.static("public"))
 
 app.use("/api/auth", authRoutes);
 app.use("/api/requests", requestRoutes);
 app.use("/api/friends", friendRoutes);
 app.use("/api/suggestion", suggestionRoutes);
+app.use("/api/user", userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

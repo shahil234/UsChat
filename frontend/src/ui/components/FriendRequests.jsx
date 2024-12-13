@@ -14,7 +14,11 @@ const FriendRequests = () => {
     dep: [refetchRequests],
   });
   if (friendRequests?.data?.length === 0) {
-    return <div className="flex items-center justify-center text-xl h-screen">You not received any friend requests yet.</div>;
+    return (
+      <div className="flex items-center justify-center text-xl h-screen">
+        You not received any friend requests yet.
+      </div>
+    );
   }
   return (
     <div>
@@ -81,7 +85,11 @@ const RequestCard = ({
   return (
     <div className="flex items-center gap-6 shadow-md rounded-md px-3 py-4">
       <div>
-        <img className="w-32 h-32" src={avatar || dummyProfile} alt="profile" />
+        <img
+          className="w-32 h-32 rounded-full object-cover"
+          src={avatar ? `http://localhost:4001/${avatar}` : dummyProfile}
+          alt="profile"
+        />
       </div>
       <div className="flex flex-col gap-2">
         <div>

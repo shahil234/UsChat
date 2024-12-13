@@ -128,8 +128,6 @@ const cancelRequest = asyncHandler(async (req, res) => {
     receiver: receiverId,
   });
 
-  console.log(deletedReq, "is this");
-
   if (!deletedReq) {
     res.status(400);
     throw new Error("Friend request not found");

@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import Users from "./pages/Users";
 import Requests from "./pages/Requests";
 import Friends from "./pages/Friends";
+import { createContext } from "vm";
 
 export default function App() {
   const isLogedIn = useAuth((state) => state.isLogedIn);
@@ -24,6 +25,7 @@ export default function App() {
       navigate("/login")
     }
   },[isLogedIn]);
+
 
   return (
     <>

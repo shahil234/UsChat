@@ -60,7 +60,7 @@ export default function Navbar() {
             <DropdownMenuContent className="mt-4">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/myprofile")}>Profile</DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate("/friends")}>
                 Friends
               </DropdownMenuItem>

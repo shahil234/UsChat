@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const useContext = create((set) => (
+export const usePopUp = create((set) => (
     {
         currentPopUp: null,
         setCurrentPopUp: (popUpName) => set({currentPopUp: popUpName}),

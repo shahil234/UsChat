@@ -15,7 +15,10 @@ import { useEffect } from "react";
 import Users from "./pages/Users";
 import Requests from "./pages/Requests";
 import Friends from "./pages/Friends";
-import { createContext } from "vm";
+import PopUpContainer from "./ui/common/PopUpContainer";
+import MyProfile from "./pages/MyProfile";
+import Photos from "./pages/Photos";
+import OthersProfile from "./pages/OthersProfile";
 
 export default function App() {
   const isLogedIn = useAuth((state) => state.isLogedIn);
@@ -28,7 +31,7 @@ export default function App() {
 
 
   return (
-    <>
+    <div>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -38,8 +41,12 @@ export default function App() {
         <Route path="/notification" element={<div>notification</div>} />
         <Route path="/requests" element={<Requests />} />
         <Route path="/friends" element={<Friends />} />
+        <Route path="/myprofile" element={<MyProfile />} />
+        <Route path="/photos" element={<Photos />} />
+        <Route path="/profile/:id" element={<OthersProfile />} />
       </Routes>
       <Toaster />
-    </>
+      <PopUpContainer />
+    </div>
   );
 }

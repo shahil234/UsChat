@@ -3,9 +3,12 @@ import dummpyProfile from "../../../public/user.png"
 import { Input } from "../../components/ui/input"
 import { Button } from "../../components/ui/button"
 import { SquarePlus } from 'lucide-react';
+import { usePopUp } from '../../store/usePopUp';
+import { PopUps } from '../../lib/helper';
 
 
 const PostUploader = () => {
+    const { setCurrentPopUp } = usePopUp();
   return (
     <div className='max-w-80 mx-auto flex gap-2 items-center'>
         <div className='flex items-center gap-2'>
@@ -18,7 +21,7 @@ const PostUploader = () => {
         </div>
         <div>
             <div className='flex justify-center'>
-                <Button variant="secondary">
+                <Button onClick={() => setCurrentPopUp(PopUps.postUploadPopUp)} variant="secondary">
                     <SquarePlus className='text-green-500' />
                     <span>Post</span>
                 </Button>

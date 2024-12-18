@@ -10,7 +10,7 @@ export default function useDelete() {
 
   const { getNewAccessToken } = useRefreshToken();
   const { accessToken } = useAuth();
-  const deleteData = async (endpoint, data) => {
+  const deleteData = async (endpoint) => {
     try {
       setError(false);
       setDeleting(true);

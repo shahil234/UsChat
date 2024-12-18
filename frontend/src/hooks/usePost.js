@@ -10,7 +10,7 @@ export default function usePost() {
 
   const { getNewAccessToken } = useRefreshToken();
   const { accessToken } = useAuth();
-  const postData = async (endpoint, data, headers = {}) => {
+  const postData = async (endpoint, data, headers) => {
     try {
       setError(false);
       setLoading(true);

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import PhotoList from "../ui/components/PhotoList";
 import { useLocation, useNavigate } from "react-router-dom";
-import { MoveLeft } from "lucide-react";
+import { ChevronLeft, MoveLeft } from "lucide-react";
 import { usePhotos } from "../store/usePhotos";
 import { useSaveScroll } from "../store/useSaveScroll";
+import Wrapper from "../ui/common/Wrapper";
 
 const Photos = () => {
   const navigate = useNavigate();
@@ -17,10 +18,11 @@ const Photos = () => {
   },[]);
 
   return (
-    <div className="bg-black justify-center items-center min-h-screen">
-      <div>
-        <MoveLeft
-          className="text-white"
+    <Wrapper className="bg-black justify-center items-center min-h-screen">
+      <div className=" py-3 flex items-center">
+        <ChevronLeft
+          className="text-white cursor-pointer"
+          size={35}
           onClick={() => {
             clearPhotos();
             navigate(-1);
@@ -28,7 +30,7 @@ const Photos = () => {
         />
       </div>
       <PhotoList />
-    </div>
+    </Wrapper>
   );
 };
 

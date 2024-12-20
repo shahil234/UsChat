@@ -66,7 +66,7 @@ const UserCard = ({
       <div>
         <span className="font-medium block text-center">{username}</span>
       </div>
-      <div>
+      <div className="flex justify-between gap-2">
         {(!isReceivedRequest &&
           !isSentRequest &&
           !isFriend 
@@ -86,7 +86,9 @@ const UserCard = ({
             </Button>
           </div>
         )}
-
+        <Button onClick={() => {
+          navigate(`/profile/${userId}`);
+        }} className="" variant="secondary">See Profile</Button>
         {isReceivedRequest && <Button variant="secondary">Confirm Request</Button>}
 
         {isSentRequest  && (

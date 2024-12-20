@@ -19,6 +19,7 @@ import PopUpContainer from "./ui/common/PopUpContainer";
 import MyProfile from "./pages/MyProfile";
 import Photos from "./pages/Photos";
 import OthersProfile from "./pages/OthersProfile";
+import Comment from "./pages/Comment";
 
 export default function App() {
   const isLogedIn = useAuth((state) => state.isLogedIn);
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/photos" element={<Photos />} />
         <Route path="/profile/:id" element={<OthersProfile />} />
+        <Route path="/comment/:id" element={<Comment />} />
       </Routes>
       <Toaster />
       <PopUpContainer />

@@ -9,7 +9,6 @@ import usePost from "../../hooks/usePost";
 import useDelete from "../../hooks/useDelete";
 import toast from "react-hot-toast";
 import { ProfileContext } from "../../lib/helper";
-import { usePopUp } from "../../store/usePopUp";
 import { usePhotos } from "../../store/usePhotos";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSaveScroll } from "../../store/useSaveScroll";
@@ -19,7 +18,7 @@ const Post = ({ data }) => {
     <div className="bg-gray-100 w-full max-w-lg">
       <div className="flex items-center px-4 py-2 gap-3">
         <img
-          src={data?.author?.avatar || DummyProfile}
+          src={ data?.author?.avatar ? "http://localhost:4001/" + data?.author.avatar :  DummyProfile}
           className="h-10 w-10 rounded-full object-cover"
         />
         <div className="-space-y-1">
@@ -35,7 +34,6 @@ const Post = ({ data }) => {
       <Gallery pictures={data?.pictures} />
       <Interaction
         postId={data?._id}
-        comments={data?.comments}
         commentCount={data?.commentCount}
         likedBy={data?.likedBy}
         heartCount={data?.hearts}
@@ -144,8 +142,6 @@ const Gallery = ({ pictures }) => {
 
 const Interaction = ({
   postId,
-  comments,
-  likedBy,
   isLiked,
   heartCount,
   commentCount,
@@ -153,6 +149,8 @@ const Interaction = ({
   const [isPostLiked, setPostLiked] = useState(isLiked);
   const { postData: likePost } = usePost();
   const { deleteData: unlikePost } = useDelete();
+
+  const navigate = useNavigate()
 
   const { setRefetchPost } = useContext(ProfileContext);
 
@@ -200,7 +198,9 @@ const Interaction = ({
         </div>
         <span>{heartCount}</span>
       </div>
-      <div className="flex gap-2 items-center cursor-pointer w-fit select-none">
+      <div onClick={() => {
+        navigate(`/comment/${postId}`)
+      }} className="flex gap-2 items-center cursor-pointer w-fit select-none">
         <MessageCircle />
         <span>{commentCount} Comment</span>
       </div>

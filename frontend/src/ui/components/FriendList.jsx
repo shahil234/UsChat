@@ -55,8 +55,8 @@ const FriendCard = ({ username, userId, avatar, setRefetchFriendList }) => {
     >
       <div>
         <img
-          className="h-32 w-32 rounded-full object-fit"
-          src={avatar || dummyProfile}
+          className="h-32 w-32 rounded-full object-cover"
+          src={avatar? "http://localhost:4001/" + avatar : dummyProfile}
           alt=""
         />
       </div>

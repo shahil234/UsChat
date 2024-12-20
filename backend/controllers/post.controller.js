@@ -71,12 +71,9 @@ const getAllPost = asyncHandler(async (req, res) => {
   const organizedPostData = await Promise.all(
     allPost.map(async (post) => {
       const data = { ...post.toObject() };
-      const commentsOnThisPost = await Comment.find({
-        post: post._id,
-      }).populate({
-        path: "commentAuthor",
-        select: "username _id avatar",
-      });
+      const commentCounts = await Comment.countDocuments({
+        post: data._id,
+      })
 
       const isLiked = await Heart.findOne({
         post: data._id,
@@ -90,8 +87,7 @@ const getAllPost = asyncHandler(async (req, res) => {
         select: "username _id avatar",
       });
 
-      data.comments = commentsOnThisPost;
-      data.commentCount = commentsOnThisPost.length;
+      data.commentCount = commentCounts;
       data.likedBy = peopleLikingThisPost;
       data.isLiked = !!isLiked;
       return data;
@@ -156,6 +152,7 @@ const getOthersPost = asyncHandler(async (req, res) => {
     data: organizedPostData,
   });
 });
+
 const HearAPost = asyncHandler(async (req, res) => {
   const { postId } = req.body;
   console.log(postId);
@@ -227,64 +224,7 @@ const UnHeartAPost = asyncHandler(async (req, res) => {
   });
 });
 
-const CommentOnAPost = asyncHandler(async (req, res) => {
-  const { comment, postId } = req.body;
 
-  if (!comment || !postId) {
-    res.status(400);
-    throw new Error("No comment or post id provided");
-  }
-
-  const post = await Post.findById(postId);
-
-  if (!post) {
-    res.status(400);
-    throw new Error("Unable to find the requested Post");
-  }
-
-  await Comment.create({
-    post: post._id,
-    commentAuthor: req.user._id,
-    commentContent: comment,
-  });
-
-  res.status(200).json({
-    success: true,
-    message: "Successfully commented on the post",
-  });
-});
-
-const RemoveCommentOnAPost = asyncHandler(async (req, res) => {
-  const { commentId } = req.body;
-
-  if (!commentId) {
-    res.status(400);
-    throw new Error("No comment id provided");
-  }
-
-  const comment = await Comment.findById(commentId);
-
-  if (!comment) {
-    res.status(404);
-    throw new Error("Unable to find the comment");
-  }
-
-  if (req.user._id.toString() !== comment.commentAuthor.toString()) {
-    res.status(401);
-    throw new Error("Unauthorized");
-  }
-
-  const result = await comment.deleteOne();
-  if (result.deletedCount === 0) {
-    res.status(500);
-    throw new Error("Failed to delete the comment");
-  }
-
-  res.status(200).json({
-    success: true,
-    message: "Successfully deleted the comment",
-  });
-});
 
 module.exports = {
   uploadNewPost,
@@ -292,7 +232,5 @@ module.exports = {
   getAllPost,
   getOthersPost,
   HearAPost,
-  UnHeartAPost,
-  CommentOnAPost,
-  RemoveCommentOnAPost,
+  UnHeartAPost
 };

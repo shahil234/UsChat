@@ -17,6 +17,7 @@ const friendRoutes = require("./routes/friend.routes");
 const suggestionRoutes = require("./routes/suggestion.routes");
 const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
+const commentRoutes = require("./routes/comment.routes")
 
 app.use("/public", express.static("public"))
 
@@ -26,6 +27,7 @@ app.use("/api/friends", friendRoutes);
 app.use("/api/suggestion", suggestionRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post",postRoutes);
+app.use("/api/comment",commentRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

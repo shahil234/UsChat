@@ -55,7 +55,7 @@ const UserCard = ({
 
 
   return (
-    <div className="col-span-12  md:col-span-6 lg:col-span-2 px-4 py-3 bg-gray-300 rounded-md shadow-md flex flex-col items-center justify-between space-y-2">
+    <div className="col-span-12  md:col-span-6 lg:col-span-3 px-4 py-3 bg-gray-300 rounded-md shadow-md flex flex-col items-center justify-between space-y-2">
       <div>
         <img
           className="w-32 h-32 rounded-full mx-auto "

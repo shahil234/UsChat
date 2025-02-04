@@ -13,6 +13,7 @@ const OthersProfile = () => {
     endpoint: `post/${params.id}`,
     dep: [refetchPost],
   });
+  
   if (postData?.data?.length === 0) {
     return (
       <div className="text-xl h-screen   flex items-center justify-center">

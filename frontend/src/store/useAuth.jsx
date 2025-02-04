@@ -8,10 +8,11 @@ export const useAuth = create(
         accessToken: localStorage.getItem("usChatAuthData")?.accessToken || null,
         refreshToken:  localStorage.getItem("usChatAuthData")?.refreshToken || null,
         isLogedIn: false,
-        logInUser: ({ accessToken, refreshToken }) =>
+        logInUser: ({ accessToken, refreshToken, userId }) =>
           set(() => ({
             accessToken,
             refreshToken,
+            userId,
             isLogedIn: true,
           })),
         logOutUser: () =>

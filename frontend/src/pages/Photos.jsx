@@ -18,7 +18,7 @@ const Photos = () => {
   },[]);
 
   return (
-    <Wrapper className="bg-black justify-center items-center min-h-screen">
+    <Wrapper className="bg-black flex flex-col justify-center items-center h-[90vh]">
       <div className=" py-3 flex items-center">
         <ChevronLeft
           className="text-white cursor-pointer"

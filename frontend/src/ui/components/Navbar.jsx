@@ -10,13 +10,14 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { useAuth } from "../../store/useAuth";
+import { messageIcon } from "../../lib/helper";
 
 export default function Navbar() {
   const query = useLocation();
   const navigate = useNavigate()
   const { logOutUser } = useAuth()
   return (
-    <nav className="w-full shadow-sm">
+    <nav className="w-full h-[10vh] shadow-sm">
       <Wrapper
         className={
           "flex items-center justify-between py-4 border-b-2 border-gray-300"
@@ -51,7 +52,10 @@ export default function Navbar() {
             />
           </Link>
         </div>
-        <div>
+        <div className="flex items-center justify-between gap-4">
+          <Link to={"/messageList"}>
+            <img src={messageIcon} className="size-6" />
+          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger>
               {" "}

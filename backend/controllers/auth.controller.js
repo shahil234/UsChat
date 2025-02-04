@@ -83,6 +83,7 @@ const login = asyncHandler(async (req, res) => {
     success: true,
     message: "User Login successfull",
     data: {
+        userId: user._id,
         accessToken,
         refreshToken
     }
@@ -115,7 +116,7 @@ const getNewAccessToken = asyncHandler(async(req, res) => {
   res.status(200).json({
     success: true,
     message: "Successfully retreived accesstoken",
-    data: {newAccessToken}
+    data: {newAccessToken, userId: userStillExist._id}
   })
 })
 

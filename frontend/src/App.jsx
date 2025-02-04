@@ -20,19 +20,21 @@ import MyProfile from "./pages/MyProfile";
 import Photos from "./pages/Photos";
 import OthersProfile from "./pages/OthersProfile";
 import Comment from "./pages/Comment";
+import MessageList from "./pages/MessageList";
+import Chats from "./pages/Chats";
 
 export default function App() {
   const isLogedIn = useAuth((state) => state.isLogedIn);
   const navigate = useNavigate();
+
   useEffect(() => {
     if(!isLogedIn){
       navigate("/login")
     }
   },[isLogedIn]);
 
-
   return (
-    <div>
+    <div className="h-screen flex flex-col">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -46,6 +48,9 @@ export default function App() {
         <Route path="/photos" element={<Photos />} />
         <Route path="/profile/:id" element={<OthersProfile />} />
         <Route path="/comment/:id" element={<Comment />} />
+        <Route path="/messageList" element={<MessageList />} >
+          <Route index path="chat" element={<Chats />} />
+        </Route>
       </Routes>
       <Toaster />
       <PopUpContainer />

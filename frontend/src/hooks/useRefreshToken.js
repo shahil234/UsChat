@@ -11,6 +11,7 @@ export default function useRefreshToken() {
       });
 
       logInUser({
+        userId: response?.data?.data?.userId,
         refreshToken,
         accessToken: response?.data?.data?.newAccessToken,
       });

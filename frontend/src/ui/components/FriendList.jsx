@@ -51,7 +51,7 @@ const FriendCard = ({ username, userId, avatar, setRefetchFriendList }) => {
   };
   return (
     <div
-      className="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 flex items-center gap-4"
+      className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 flex items-center gap-4"
     >
       <div>
         <img
@@ -60,9 +60,9 @@ const FriendCard = ({ username, userId, avatar, setRefetchFriendList }) => {
           alt=""
         />
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col items-start gap-2">
         <span className="font-medium block text-center">{username}</span>
-        <div className="space-x-2">
+        <div className="space-x-2 sm:flex sm:flex-col sm:gap-2 md:block">
           <Button
             onClick={unFriendUser}
             disabled={deleting}

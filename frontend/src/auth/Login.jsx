@@ -50,6 +50,7 @@ const Login = () => {
       toast.error(loginResponse?.message)
     }
   };
+  
   return (
     <Wrapper className="h-screen w-full flex items-center bg-[#8848b7] justify-center">
       <form
